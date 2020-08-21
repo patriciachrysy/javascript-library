@@ -5,7 +5,7 @@ let bookForm = document.getElementById('display-form');
  bookForm.addEventListener('click', function(){
     formSpace.innerHTML = `
     <div class="col-8 p-3 card light-background">
-        <form id="bookForm">
+        <form id="bookForm" action="#">
             <div class="form-group">
                 <label for="title">The book title</label>
                 <input type="text" name="title" class="form-control" placeholder="Enter the book title" required>
@@ -13,6 +13,10 @@ let bookForm = document.getElementById('display-form');
             <div class="form-group">
                 <label for="author">The author</label>
                 <input type="text" name="author" class="form-control" placeholder="Enter the author's name" required>
+            </div>
+            <div class="form-group">
+                <label for="pages">Number of pages</label>
+                <input type="number" name="pages" class="form-control" required>
             </div>
             <div class="form-group">
                 <label for="read">Status</label>
@@ -36,7 +40,16 @@ function Book(title, author, pages, read){
     this.info = function(){
         return this.title + ' by ' + this.author + ', ' + this.pages + ' pages, ' + this.read; 
     } 
-} 
+}
+
+Book.prototype.toggleRead = function(){
+    if (this.read == "Read"){
+        this.read = "Not read yet";
+    }else{
+        this.read = "Read";
+    }
+    render();
+}
 
 
 function addBookToLibrary(title, author, pages, read) {
@@ -57,11 +70,16 @@ function render() {
           <a href="#" class="btn btn-warning" onclick="removeBook(${i})">Remove this book</a>
         </div>
         <div class="card-footer text-muted">
-        ${myLibrary[i].read}
+            <a href="#" class="btn btn-info" onclick="changeRead(${i})">${myLibrary[i].read}</a>
         </div>
       </div>`;
     }
     mybooks.innerHTML = allBooks;
+}
+
+function changeRead(index){
+    let mybook = myLibrary[index];
+    mybook.toggleRead();
 }
 
 function removeBook(index){
@@ -74,10 +92,10 @@ function removeBook(index){
 
 function saveBook(){
     let myForm = document.getElementById('bookForm');
-    addBookToLibrary(myForm.elements.namedItem('title').value,
-    myForm.elements.namedItem('author').value, myForm.elements.namedItem('pages').value, myForm.elements.namedItem('read').value
-    );
+    addBookToLibrary(myForm.elements.namedItem('title').value, myForm.elements.namedItem('author').value, myForm.elements.namedItem('pages').value, myForm.elements.namedItem('read').value);
     render();
+    myForm.reset();
+    formSpace.setAttribute('style', 'display: none !important');
 }
 
 addBookToLibrary('Math', 'Taiwo', 200, 'Read');
