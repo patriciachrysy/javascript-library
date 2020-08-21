@@ -4,6 +4,8 @@
 
 ![screenshot](./app_screenshot.png)
 
+ View the app live ![here](https://patriciachrysy.github.io/javascript-library/)
+ 
 ## Built With
 
 - Javascript, HTML and CSS
