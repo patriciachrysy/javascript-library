@@ -2,10 +2,10 @@ let myLibrary = [];
 let mybooks = document.querySelector('.book-card');
 let formSpace = document.querySelector('.form-space');
 let bookForm = document.getElementById('display-form');
-bookForm.addEventListener('click', function(){
+ bookForm.addEventListener('click', function(){
     formSpace.innerHTML = `
-    <div class="col-8 p-0 card text-center light-background">
-        <form name="bookForm">
+    <div class="col-8 p-3 card light-background">
+        <form id="bookForm">
             <div class="form-group">
                 <label for="title">The book title</label>
                 <input type="text" name="title" class="form-control" placeholder="Enter the book title" required>
@@ -21,7 +21,7 @@ bookForm.addEventListener('click', function(){
                     <option>Not read yet</option>
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary" id="addBook">Save</button>
+            <button type="submit" class="btn btn-primary" id="addBook" onclick="saveBook()">Save</button>
         </form>
     </div>
 `
@@ -54,7 +54,7 @@ function render() {
         <div class="card-body">
           <h5 class="card-title">${myLibrary[i].title}</h5>
           <p class="card-text">${myLibrary[i].pages} pages</p>
-          <a href="#" class="btn btn-warning">Remove this book</a>
+          <a href="#" class="btn btn-warning" onclick="removeBook(${i})">Remove this book</a>
         </div>
         <div class="card-footer text-muted">
         ${myLibrary[i].read}
@@ -64,8 +64,25 @@ function render() {
     mybooks.innerHTML = allBooks;
 }
 
+function removeBook(index){
+    let confirmation = confirm(`Are you sure you want to remove ${myLibrary[index].title}?`)
+        if(confirmation == true){
+            myLibrary.splice(index,1);
+            render();
+    }
+}
+
+function saveBook(){
+    let myForm = document.getElementById('bookForm');
+    addBookToLibrary(myForm.elements.namedItem('title').value,
+    myForm.elements.namedItem('author').value, myForm.elements.namedItem('pages').value, myForm.elements.namedItem('read').value
+    );
+    render();
+}
+
 addBookToLibrary('Math', 'Taiwo', 200, 'Read');
 addBookToLibrary('JavaScript', 'Patricia', 300, 'Read');
 addBookToLibrary('Romeo and Juliet', 'Patricia', 500, 'Not Read yet');
 render(); 
 console.log(myLibrary);
+
