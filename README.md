@@ -4,6 +4,8 @@
 
 ![screenshot](./app_screenshot.png)
 
+ View the app live ![here](https://patriciachrysy.github.io/javascript-library/)
+ 
 ## Built With
 
 - Javascript, HTML and CSS
@@ -48,7 +50,7 @@ To get a local copy up and running follow these simple example steps.
 
 Contributions, issues and feature requests are welcome!
 
-Feel free to check the [issues page](https://github.com/patriciachrysy/micro-reddit/issues).
+Feel free to check the [issues page](https://github.com/patriciachrysy/javascript-library/issues).
 
 ## Show your support
 
